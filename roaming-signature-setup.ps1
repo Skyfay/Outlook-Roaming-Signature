@@ -35,7 +35,11 @@ function status_check {
 #_________________________________________________________________________________________________________________________________________________#
 
 cls
-Write-Host "With this script you can disable and enable roaming signatures for Outlook."
+Write-Host @"
+|-----------------------------------------------------------------------------|
+| With this script you can disable and enable roaming signatures for Outlook. |
+|-----------------------------------------------------------------------------|
+"@
 Start-Sleep 1
 Write-Host `n
 status_check
