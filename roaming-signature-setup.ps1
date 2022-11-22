@@ -1,6 +1,6 @@
 # creator: Skyfay
 # Support: support@skyfay.ch
-# Last edit: 22.11.2022
+# Last edit: 21.11.2022
 
 #‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾#
 #->                                                                       Funcions                                                              <-#
@@ -46,13 +46,19 @@ Write-Host `n
 
 $value = Read-Host "Do you want to enable or disable roaming signatures?"
 
+
 switch ($value) {
     1 {disable_roaming_signature}
     2 {enable_roaming_signature}
-    Default {"Please enter a value between 1-2"}
+    Default {
+    cls
+    Write-Host "Please enter a value between 1-2! $value is invalide."
+    Start-Sleep 4
+    Exit
+    }
 }
 
 cls
 
 Write-Host "You have successfully reconfigured roaming signatures for Outlook"
-Start-Sleep 1
+Start-Sleep 2
