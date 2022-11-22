@@ -1,6 +1,6 @@
 # creator: Skyfay
 # Support: support@skyfay.ch
-# Last edit: 21.11.2022
+# Last edit: 22.11.2022
 
 #‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾#
 #->                                                                       Funcions                                                              <-#
@@ -17,6 +17,19 @@ function enable_roaming_signature {
     Remove-ItemProperty -Path $path1 -Name 'DisableRoamingSignaturesTemporaryToggle'
 }
 
+function status_check {
+    $error.clear() 
+    try {
+        Get-ItemProperty -Path 'HKCU:\SOFTWARE\Microsoft\Office\16.0\Outlook\Setup' -Name 'DisableRoamingSignaturesTemporaryToggle' -ErrorAction Stop | out-null
+    }
+    catch {
+        Write-Host "Status: Outlook Signature Roaming is currently active." -ForegroundColor green
+    }
+    if (!$error) {
+        Write-Host "Status: Outlook Signature Roaming is currently disabled." -ForegroundColor red
+    }
+}
+
 #‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾#
 #->                                                                     Main Code                                                               <-#
 #_________________________________________________________________________________________________________________________________________________#
@@ -24,6 +37,8 @@ function enable_roaming_signature {
 cls
 Write-Host "With this script you can disable and enable roaming signatures for Outlook."
 Start-Sleep 1
+Write-Host `n
+status_check
 Write-Host `n
 Write-Host "(1)  -  disable roaming signatures"
 Write-Host "(2)  -  enable roaming signatures"
